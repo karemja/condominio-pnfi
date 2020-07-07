@@ -1,4 +1,4 @@
-<div class="collapse navbar-collapse">
+<div class="collapse navbar-collapse" id="navbarNavDropdown">
 	<ul class="navbar-nav">
 		<li class="nav-item dropdown">
 			<a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
