@@ -32,12 +32,14 @@
 		
 		<div class="col">
 		   <label for="usuario">Usuario</label>
-		   <input class="form-control" type="text" id="usuario" name="usuario" />
+			 <input class="form-control" type="text" id="usuario" name="usuario" />
+			 <span id="susuario"></span>
 		</div>
 		
 		<div class="col">
 		   <label for="clave">Clave</label>
-		   <input class="form-control" type="text" id="clave" name="clave" />
+			 <input class="form-control" type="text" id="clave" name="clave" />
+			 <span id="sclave"></span>
 		</div>
 		
 	</div>
@@ -114,6 +116,6 @@
 <!--fin de seccion modal-->
 
 
-
+<script src="js/valida-usuarios.js"></script>
 </body>
 </html>

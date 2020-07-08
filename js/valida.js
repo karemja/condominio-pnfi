@@ -146,7 +146,7 @@ function carga() {
 	document.getElementById('nombre').maxLength = 25;
 
 	document.getElementById('nombre').onkeypress = function (e) {
-		er = /^[a-zA-Z\s]*$/;
+		er = /^[a-zA-ZñÑ\s]*$/;
 		validarkeypress(er, e);
 	};
 
@@ -159,7 +159,7 @@ function carga() {
 	};
 
 	document.getElementById('nombre').onkeyup = function () {
-		er = /^[A-Z][a-z]{1,24}$/;
+		er = /^[A-ZÑ][a-zñ]{1,24}$/;
 		r = validarkeyup(er, this, document.getElementById('snombre'), "El nombre debe comenzar en mayúscula");
 	}
 
@@ -167,7 +167,7 @@ function carga() {
 	document.getElementById('apellido').maxLength = 25;
 
 	document.getElementById('apellido').onkeypress = function (e) {
-		er = /^[a-zA-Z\s]*$/;
+		er = /^[a-zA-ZñÑ\s]*$/;
 		validarkeypress(er, e);
 	};
 
@@ -180,7 +180,7 @@ function carga() {
 	};
 
 	document.getElementById('apellido').onkeyup = function () {
-		er = /^[A-Z][a-z]{1,24}$/;
+		er = /^[A-ZÑ][a-zñ]{1,24}$/;
 		r = validarkeyup(er, this, document.getElementById('sapellido'), "El apellido debe comenzar en mayúscula");
 	}
 	//validacion de telefono
@@ -317,14 +317,14 @@ function valida_dpropietario() {
 		return error;
 	}
 	//para nombre
-	er = /^[A-Z][a-z]{1,24}$/;
+	er = /^[A-ZÑ][a-zñ]{1,24}$/;
 	r = validarkeyup(er, document.getElementById('nombre'), document.getElementById('snombre'), "El nombre debe comenzar en mayúscula");
 	if (r == 0) {
 		error = "El nombre debe comenzar en mayúscula";
 		return error;
 	}
 	//para apellido
-	er = /^[A-Z][a-z]{1,24}$/;
+	er = /^[A-ZÑ][a-zñ]{1,24}$/;
 	r = validarkeyup(er, document.getElementById('apellido'), document.getElementById('sapellido'), "El apellido debe comenzar en mayúscula");
 	if (r == 0) {
 		error = "El apellido debe comenzar en mayúscula";
