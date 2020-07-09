@@ -27,10 +27,12 @@
           <div class="col">
             <label for="rif">rif</label>
             <input class="form-control" type="text" id="rif" name="rif" />
+            <span id="srif"></span>
           </div>
           <div class="col">
             <label for="contacto">Persona de Contacto</label>
             <input class="form-control" type="text" id="contacto" name="contacto" />
+            <span id="scontacto"></span>
           </div>
         </div>
 
@@ -38,6 +40,7 @@
           <div class="col">
             <label for="telefono">Teléfono</label>
             <input class="form-control" type="text" id="telefono" name="telefono" />
+            <span id="stelefono"></span>
           </div>
           <div class="col">
             <label for="Correo">Correo</label>
@@ -49,6 +52,7 @@
           <div class="col">
             <label for="razon_social">Razón Social</label>
             <input class="form-control" type="text" id="razon_social" name="razon_social" />
+            <span id="srazon_social"></span>
           </div>
         </div>
 
@@ -56,6 +60,7 @@
           <div class="col">
             <label for="direccion">Dirección Fiscal</label>
             <input class="form-control" type="text" id="direccion" name="direccion" />
+            <span id="sdireccion"></span>
           </div>
         </div>
 
@@ -63,6 +68,7 @@
           <div class="col">
             <label for="servicio">Servicios ó Productos</label>
             <input class="form-control" type="text" id="servicio" name="servicio" />
+            <span id="servicio"></span>
           </div>
         </div>
 
@@ -70,10 +76,12 @@
           <div class="col">
             <label for="cotizacion">Cotización</label>
             <input class="form-control" type="text" id="cotizacion" name="cotizacion" />
+            <span id="scotizacion"></span>
           </div>
           <div class="col">
             <label for="forma_pago">Forma de Pago</label>
             <input class="form-control" type="text" id="forma_pago" name="forma_pago" />
+            <span id="sforma_pago"></span>
           </div>
         </div>
 
@@ -81,10 +89,12 @@
           <div class="col">
             <label for="fecha_cotizacion">Fecha de Cotización</label>
             <input class="form-control" type="date" id="fecha_cotizacion" name="fecha_cotizacion" />
+            <span id="sfecha_cotizacion"></span>
           </div>
           <div class="col">
             <label for="fecha_tope">Cotización Valida Hasta</label>
             <input class="form-control" type="date" id="fecha_tope" name="fecha_tope" />
+            <span id="fecha_tope"></span>
           </div>
         </div>
 
@@ -96,16 +106,16 @@
 
         <div class="row">
           <div class="col">
-            <button type="button" class="btn btn-primary" id="incluir" name="incluir">INCLUIR</button>
+            <button type="submit" class="btn btn-primary" id="incluir" name="incluir">INCLUIR</button>
           </div>
           <div class="col">
             <button type="button" class="btn btn-primary" id="consultar" data-toggle="modal" data-target="#modal1" name="consultar">CONSULTAR</button>
           </div>
           <div class="col">
-            <button type="button" class="btn btn-primary" id="modificar" name="modificar">MODIFICAR</button>
+            <button type="submit" class="btn btn-primary" id="modificar" name="modificar">MODIFICAR</button>
           </div>
           <div class="col">
-            <button type="button" class="btn btn-primary" id="eliminar" name="eliminar">ELIMINAR</button>
+            <button type="submit" class="btn btn-primary" id="eliminar" name="eliminar">ELIMINAR</button>
           </div>
           <div class="col">
             <a href="." class="btn btn-primary">REGRESAR</a>
