@@ -64,20 +64,167 @@ function carga() {
 		r = validarkeyup(er, this, document.getElementById('sclave'), "La clave debe contener al menos un numero, una letra en mayuscula, una letra en minuscula y un caracter especial \"!\", \"$\",\"&\", \"*\", \"/\", \"-\", \"+\", \".\", \"(\" ó \")\"");
 	};
 
-	document.getElementById('incluir' || 'modificar').onclick = function () {
-		a = valida_campos();
+	//validacion de correo
+	document.getElementById('correo').maxLength = 35;
 
+	document.getElementById('correo').onkeypress = function (e) {
+		er = /^[a-zA-Z0-9.-_@\u00f1\u00d1\u00E0-\u00FC]*$/;
+		validarkeypress(er, e);
+	};
+
+	document.getElementById('correo').onfocus = function () {
+		document.getElementById('scorreo').innerText = "El correo deve tener un formato valido";
+	};
+
+	document.getElementById('correo').onblur = function () {
+		document.getElementById('scorreo').innerText = "";
+	};
+
+	document.getElementById('correo').onkeyup = function () {
+		er = /^[a-zA-Z0-9.-_\u00f1\u00d1\u00E0-\u00FC]{3,20}[@][A-Za-z]{3,10}[.][A-Za-z]{2,3}$/;
+		r = validarkeyup(er, this, document.getElementById('scorreo'), "El correo deve tener un formato valido");
+	}
+
+	//validacion de telefono
+	document.getElementById('telefono').maxLength = 14;
+
+	document.getElementById('telefono').onkeypress = function (e) {
+		er = /^[0-9-]*$/;
+		validarkeypress(er, e);
+	};
+
+	document.getElementById('telefono').onfocus = function () {
+		document.getElementById('stelefono').innerText = "Ejemplo: 0414-205-33-44";
+	};
+
+	document.getElementById('telefono').onblur = function () {
+		document.getElementById('stelefono').innerText = "";
+	};
+
+	document.getElementById('telefono').onkeyup = function () {
+		er = /^[0-9]{4}[-][0-9]{3}[-][0-9]{2}[-][0-9]{2}$/;
+		r = validarkeyup(er, this, document.getElementById('stelefono'), "Ejemplo: 0414-205-33-44");
+	}
+
+	//validacion de direccion
+	document.getElementById('direccion').onkeypress = function (e) {
+		er = /^[0-9a-zA-ZñÑ\s\-\.\_]*$/;
+		validarkeypress(er, e);
+	};
+
+	document.getElementById('direccion').onfocus = function () {
+		document.getElementById('sdireccion').innerText = "La direccion es ovligatoria debe contener solo numeros, letras y los caracteres \"-\", \"_\" y \".\"";
+	};
+
+	document.getElementById('direccion').onblur = function () {
+		document.getElementById('sdireccion').innerText = "";
+	};
+
+	document.getElementById('direccion').onkeyup = function () {
+		er = /^[0-9a-zA-ZñÑ\s\-\.\_]+$/;
+		r = validarkeyup(er, this, document.getElementById('sdireccion'), "La direccion es ovligatoria debe contener solo numeros, letras y los caracteres \"-\", \"_\" y \".\"");
+	}
+
+	document.getElementById('incluir').onclick = function () {
+		a = valida_campos();
 		if (a != '') {
 			$("#contenidodemodal").html(a);
-
 			$("#mostrarmodal").modal("show");
-
 			setTimeout(function () {
 				$("#mostrarmodal").modal("hide");
-
 			}, 4000);
+		} else {
+			var datos = new FormData();
+			datos.append('accion', 'incluir');
+			datos.append('cedula', $('#cedula').val());			
+			datos.append('usuario', $('#usuario').val());			
+			datos.append('clave', $('#clave').val());			
+			datos.append('correo', $('#correo').val());			
+			datos.append('telefono', $('#telefono').val());			
+			datos.append('direccion', $('#direccion').val());
+			envioAjax(datos);
+			limpia();			
 		}
 	}
+
+	document.getElementById('modificar').onclick = function () {
+		a = valida_campos();
+		if (a != '') {
+			$("#contenidodemodal").html(a);
+			$("#mostrarmodal").modal("show");
+			setTimeout(function () {
+				$("#mostrarmodal").modal("hide");
+			}, 4000);
+		} else {
+			var datos = new FormData();
+			datos.append('accion', 'modificar');
+			datos.append('cedula', $('#cedula').val());			
+			datos.append('usuario', $('#usuario').val());			
+			datos.append('clave', $('#clave').val());			
+			datos.append('correo', $('#correo').val());			
+			datos.append('telefono', $('#telefono').val());			
+			datos.append('direccion', $('#direccion').val());
+			envioAjax(datos);
+			limpia();			
+		}
+	}
+
+	document.getElementById('eliminar').onclick = function () {
+		er = /^[VE][-][0-9]{1,2}[.][0-9]{3}[.][0-9]{3}$/;
+		r = validarkeyup(er, document.getElementById('cedula'), document.getElementById('scedula'), "Ejemplo: V-19.999.999");
+		if (r == 0) {
+			$("#contenidodemodal").html("Ejemplo: V-19.999.999");
+			$("#mostrarmodal").modal("show");
+			setTimeout(function () {
+				$("#mostrarmodal").modal("hide");
+			}, 4000);
+		}
+		else {			
+			var datos = new FormData();
+			datos.append('accion', 'eliminar');
+			datos.append('cedula', $('#cedula').val());
+			datos.append('usuario', $('#usuario').val());
+			envioAjax(datos);
+			limpia();
+		}
+	}
+}
+
+function envioAjax(datos) {
+	$.ajax({
+		async: true,
+		url: '', //la pagina a donde se envia por estar en mvc, se omite la ruta ya que siempre estaremos en la misma pagina
+		type: 'POST',//tipo de envio 
+		contentType: false,
+		data: datos,
+		processData: false,
+		cache: false,
+		success: function (respuesta) {//si resulto exitosa la transmision
+			$("#contenidodemodal").html(respuesta);
+			$("#mostrarmodal").modal("show");
+			setTimeout(function () {
+				$("#mostrarmodal").modal("hide");
+			}, 4000);
+		},
+		error: function () {
+			$("#contenidodemodal").html('Error con ajax');
+			$("#mostrarmodal").modal("show");
+			setTimeout(function () {
+				$("#mostrarmodal").modal("hide");
+			}, 4000);
+		}
+
+	});
+
+}
+
+function limpia() {
+	$("#cedula").val('');
+	$("#usuario").val('');
+	$("#clave").val('');
+	$("#telefono").val('');
+	$("#direccion").val('');
+	$("#correo").val('');
 }
 
 function valida_campos() {
