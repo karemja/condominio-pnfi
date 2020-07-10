@@ -8,3 +8,5 @@ Tarea 2: Formulario de proveedores. se encuentra en la carpeta vista/proveedors.
 tarea 3: Se valido el formulario de usuarios. se encuentra en js/valida-usuarios.js
 
 tarea 4: Se valido el formulario de empleados con button. se encuentra en js/valida-empleados.js
+
+tarea 5: Se completo el formulario de usuarios para enviar con ajax. se encuentra en js/valida-usuarios.js
