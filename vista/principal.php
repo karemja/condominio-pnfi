@@ -1,15 +1,11 @@
 <html>
-<head>
-<!--Lineas para poder usar el framework Boostrap-->
- <link rel="stylesheet" href="css/bootstrap.min.css">
- <script src="js/jquery.min.js" ></script>
- <script src="js/popper.min.js" ></script>
- <script src="js/bootstrap.min.js" ></script>
- 
-</head>
+<?php require_once "comunes/cabecera.php"; ?>
 <body> 
 <div class="container">
    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button> 
         <img src="img/logo.jpeg" alt="" style="width:50px;">
 		<label class="navbar-brand" >Condominio</label>
 		<?php require_once('comunes/menu.php'); ?>

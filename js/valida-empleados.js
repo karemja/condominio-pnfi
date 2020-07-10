@@ -253,27 +253,36 @@ function carga() {
 	}
 
 	document.getElementById('incluir').onclick = function () {
-		document.getElementById('accion').value = 'incluir';
 		a = valida_datos();
 		if (a != '') {
 			$("#contenidodemodal").html(a);
-
 			$("#mostrarmodal").modal("show");
-
 			setTimeout(function () {
 				$("#mostrarmodal").modal("hide");
-
 			}, 4000);
 		}
 		else {
-			document.getElementById('f').submit();
+			var datos = new FormData();
+			datos.append('accion', 'incluir');
+			datos.append('cedula', $("#cedula").val());
+			datos.append('nombre', $("#nombre").val());
+			datos.append('apellido', $("#apellido").val());
+			datos.append('telefono', $("#telefono").val());
+			datos.append('direccion', $("#direccion").val());
+			datos.append('correo', $("#correo").val());
+			datos.append('cargo', $("#cargo").val());
+			datos.append('fecha_ingreso', $('#fecha_ingreso').val());
+			datos.append('salario', $('#salario').val());
+			datos.append('hora_entrada', $('#hora_entrada').val());
+			datos.append('hora_salida', $('#hora_salida').val());
+			envioAjax(datos);
+			limpia();
 		}
 
 	}
 
 
 	document.getElementById('modificar').onclick = function () {
-		document.getElementById('accion').value = 'modificar';
 		a = valida_datos();
 		if (a != '') {
 			$("#contenidodemodal").html(a);
@@ -283,15 +292,87 @@ function carga() {
 			}, 4000);
 		}
 		else {
-			document.getElementById('f').submit();
+			var datos = new FormData();
+			datos.append('accion', 'modificar');
+			datos.append('cedula', $("#cedula").val());
+			datos.append('nombre', $("#nombre").val());
+			datos.append('apellido', $("#apellido").val());
+			datos.append('telefono', $("#telefono").val());
+			datos.append('direccion', $("#direccion").val());
+			datos.append('correo', $("#correo").val());
+			datos.append('cargo', $("#cargo").val());
+			datos.append('fecha_ingreso', $('#fecha_ingreso').val());
+			datos.append('salario', $('#salario').val());
+			datos.append('hora_entrada', $('#hora_entrada').val());
+			datos.append('hora_salida', $('#hora_salida').val());
+			envioAjax(datos);
+			limpia();
 		}
 	}
 
 	document.getElementById('eliminar').onclick = function () {
-		document.getElementById('accion').value = 'eliminar';
-		document.getElementById('f').submit();
+		er = /^[VE][-][0-9]{1,2}[.][0-9]{3}[.][0-9]{3}$/;
+		r = validarkeyup(er, document.getElementById('cedula'), document.getElementById('scedula'), "Ejemplo: V-19.999.999");
+		if (r == 0) {
+			$("#contenidodemodal").html("Ejemplo: V-19.999.999");
+			$("#mostrarmodal").modal("show");
+			setTimeout(function () {
+				$("#mostrarmodal").modal("hide");
+			}, 4000);
+		}
+		else {			
+			var datos = new FormData();
+			datos.append('accion', 'eliminar');
+			datos.append('cedula', $('#cedula').val());
+			datos.append('nombre', $('#nombre').val());
+			datos.append('apellido', $('#apellido').val());
+			envioAjax(datos);
+			limpia();
+		}
 	}
 
+}
+
+function envioAjax(datos) {
+	$.ajax({
+		async: true,
+		url: '', //la pagina a donde se envia por estar en mvc, se omite la ruta ya que siempre estaremos en la misma pagina
+		type: 'POST',//tipo de envio 
+		contentType: false,
+		data: datos,
+		processData: false,
+		cache: false,
+		success: function (respuesta) {//si resulto exitosa la transmision
+			$("#contenidodemodal").html(respuesta);
+			$("#mostrarmodal").modal("show");
+			setTimeout(function () {
+				$("#mostrarmodal").modal("hide");
+			}, 4000);
+		},
+		error: function () {
+			$("#contenidodemodal").html('Error con ajax');
+			$("#mostrarmodal").modal("show");
+			setTimeout(function () {
+				$("#mostrarmodal").modal("hide");
+			}, 4000);
+		}
+
+	});
+
+}
+
+function limpia() {
+	$("#cedula").val('');
+	$("#nombre").val('');
+	$("#apellido").val('');
+	$("#telefono").val('');
+	$("#direccion").val('');
+	$("#correo").val('');
+	$("#cargo").val('');
+	$('#fecha_ingreso').val('');
+	$('#salario').val('');
+	$('#hora_entrada').val('');
+	$('#hora_salida').val('');
 }
 
 function valida_datos() {
@@ -308,7 +389,7 @@ function valida_datos() {
 	//para apellido
 	er = /^[A-ZÑ][a-zñ]{1,24}$/;
 	r = validarkeyup(er, document.getElementById('apellido'), document.getElementById('sapellido'), "El apellido debe comenzar en mayúscula");
-	if(r== 0) {
+	if (r == 0) {
 		error = "El apellido debe comenzar en mayúscula";
 		return error;
 	}
@@ -316,7 +397,7 @@ function valida_datos() {
 	//para nombre
 	er = /^[A-ZÑ][a-zñ]{1,24}$/;
 	r = validarkeyup(er, document.getElementById('nombre'), document.getElementById('snombre'), "El nombre debe comenzar en mayúscula");
-	if (r==0) {
+	if (r == 0) {
 		error = "El nombre debe comenzar en mayúscula";
 		return error;
 	}
@@ -335,7 +416,7 @@ function valida_datos() {
 		error = "La direccion es ovligatoria debe contener solo numeros, letras y los caracteres \"-\", \"_\" y \".\"";
 		return error;
 	}
-	
+
 	//para correo 
 	er = /^[a-zA-Z0-9.-_\u00f1\u00d1\u00E0-\u00FC]{3,20}[@][A-Za-z]{3,10}[.][A-Za-z]{2,3}$/;
 	r = validarkeyup(er, document.getElementById('correo'), document.getElementById('scorreo'), "El correo deve tener un formato valido");

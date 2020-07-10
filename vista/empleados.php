@@ -23,7 +23,6 @@
     <!-- todo el contenido ira dentro de esta etiqueta-->
 
     <form method="post" action="" id="f">
-      <input type="text" name="accion" id="accion" style="display:none" />
 
       <div class="container">
 
@@ -126,17 +125,6 @@
       </div>
     </form>
 
-    <div class="container">
-	  <div class="row">
-		<div class="col">
-		    <?php
-			   if(isset($datos_enviados)){
-				   echo($datos_enviados);
-			   }
-			?>
-		</div>
-	  </div>
-	</div>
   </div> <!-- fin de container -->
 
   <div class="modal fade" tabindex="-1" role="dialog" id="modal1">
