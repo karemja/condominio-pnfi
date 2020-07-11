@@ -184,6 +184,10 @@ function carga() {
 			datos.append('accion', 'eliminar');
 			datos.append('cedula', $('#cedula').val());
 			datos.append('usuario', $('#usuario').val());
+			datos.append('clave', $('#clave').val());
+			datos.append('correo', $('#correo').val());
+			datos.append('telefono', $('#telefono').val());
+			datos.append('direccion', $('#direccion').val());
 			envioAjax(datos);
 			limpia();
 		}
