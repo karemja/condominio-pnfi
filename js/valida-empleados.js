@@ -19,7 +19,13 @@ function carga() {
 
 	document.getElementById('cedula').onkeyup = function () {
 		er = /^[VE][-][0-9]{1,2}[.][0-9]{3}[.][0-9]{3}$/;
-		r = validarkeyup(er, this, document.getElementById('scedula'), "Ejemplo: V-19.999.999");
+    r = validarkeyup(er, this, document.getElementById('scedula'), "Ejemplo: V-19.999.999");
+    if (this.value.length > 10) {
+      var datos = new FormData();
+      datos.append('accion', 'consultatr');
+      datos.append('cedula', this.value);
+      consultaTr(datos);
+    }
 	};
 
 	//validacion de nombre
@@ -347,6 +353,47 @@ function carga() {
     
   }
 }
+
+function consultaTr(datos) {
+  $.ajax({
+    async: true,
+    url: '', //la pagina a donde se envia por estar en mvc, se omite la ruta ya que siempre estaremos en la misma pagina
+    type: 'POST',//tipo de envio 
+    contentType: false,
+    data: datos,
+    processData: false,
+    cache: false,
+    success: function (respuesta) {//si resulto exitosa la transmision
+      if (respuesta == '') {
+        document.getElementById('usuario').value = '';
+        document.getElementById('clave').value = '';
+        
+      }
+      else {
+        lee = JSON.parse(respuesta);
+        document.getElementById('apellido').value = lee[0].apellido;
+        document.getElementById('nombre').value = lee[0].nombre;
+        document.getElementById('correo').value = lee[0].correo;
+        document.getElementById('telefono').value = lee[0].telefono;
+        document.getElementById('direccion').value = lee[0].direccion;
+        document.getElementById('fecha_ingreso').value = lee[0].fecha_ingreso;
+        document.getElementById('cargo').value = lee[0].cargo;
+        document.getElementById('salario').value = lee[0].salario;
+        document.getElementById('hora_entrada').value = lee[0].hora_entrada;
+        document.getElementById('hora_salida').value = lee[0].hora_salida;
+      }
+    },
+    error: function () {
+      $("#contenidodemodal").html('Error con ajax');
+      $("#mostrarmodal").modal("show");
+      setTimeout(function () {
+        $("#mostrarmodal").modal("hide");
+      }, 4000);
+    }
+
+  });
+}
+
 
 function consultaAjax(datos) {
   $.ajax({

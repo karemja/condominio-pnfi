@@ -235,4 +235,27 @@ class empleados extends datos
       return $e->getMessage();
     }
   }
+
+  function consultatr($cedula){
+		$co = $this->conecta();
+		$co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		try{
+			
+			$resultado = $co->query("Select * from empleados where cedula='$cedula'");
+			$fila = $resultado->fetchAll(PDO::FETCH_BOTH);
+			if($fila){
+
+				return json_encode($fila);
+			    
+			}
+			else{
+				
+				return '';
+			}
+			
+		}catch(Exception $e){
+			return $e->getMessage();
+		}
+		
+	}
 }

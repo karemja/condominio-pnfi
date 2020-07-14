@@ -22,6 +22,12 @@ if (is_file("vista/" . $pagina . ".php")) {
       echo $o->consultar();
       exit;
     }
+
+    if($accion=='consultatr'){
+      echo $o->consultatr($_POST['cedula']);
+      exit;
+    }
+    
     $o->set_cedula($_POST['cedula']);
     $o->set_apellido($_POST['apellido']);
     $o->set_nombre($_POST['nombre']);
