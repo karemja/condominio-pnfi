@@ -60,24 +60,95 @@ class usuarios extends datos {
   }
 
   function incluir(){
-		//aca iran las instrucciones sql, por lo pronto solo retornaremos un mensaje
-		return "Usted va a incluir <br/>".$this->cedula.
-        "<br/>".$this->usuario."<br/>".$this->clave.
-        "<br/>".$this->correo."<br/>".$this->telefono.
-				"<br/>".$this->direccion;       
+    $co = $this->conecta();
+		$co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    
+    try {
+				$co->query("Insert into usuarios(
+					cedula,
+					usuario,
+          clave,
+          correo,
+          telefono,
+          direccion
+					)
+					Values(
+					'$this->cedula',
+					'$this->usuario',
+          '$this->clave',
+          '$this->correo',
+          '$this->telefono',
+          '$this->direccion'
+					)");
+					return "Registro incluido";
+		} catch(Exception $e) {
+			return $e->getMessage();
+		}   
 	}
 	
 	function modificar(){
-		//aca iran las instrucciones sql, por lo pronto solo retornaremos un mensaje
-		return "Usted va a modificar <br/>".$this->cedula.
-        "<br/>".$this->usuario."<br/>".$this->clave.
-        "<br/>".$this->correo."<br/>".$this->telefono.
-				"<br/>".$this->direccion;
+		$co = $this->conecta();
+		$co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		try {
+				$co->query("Update usuarios set 
+					usuario = '$this->usuario',
+          clave = '$this->clave',
+          correo = '$this->correo',
+          telefono = '$this->telefono',
+          direccion = '$this->direccion'
+          where cedula = '$this->cedula'");
+					return "Registro modificado";
+		} catch(Exception $e) {
+			return $e->getMessage();
+		}
 	}
 	
 	function eliminar(){
-		//aca iran las instrucciones sql, por lo pronto solo retornaremos un mensaje
-		return "Usted va a eliminar <br/>".$this->cedula;
+    $co = $this->conecta();
+		$co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		try {
+				$co->query("Delete from usuarios 
+          where cedula = '$this->cedula'");
+					return "Registro eliminado";
+		} catch(Exception $e) {
+			return $e->getMessage();
+		}
 	}
-	
+  
+  
+  function consultar(){
+		$co = $this->conecta();
+		$co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		try{
+			
+			$resultado = $co->query("Select * from usuarios");
+			
+			if($resultado){
+				
+				$respuesta = '';
+				foreach($resultado as $r){
+					$respuesta = $respuesta."<tr>";
+						$respuesta = $respuesta."<td>";
+							$respuesta = $respuesta.$r['cedula'];
+						$respuesta = $respuesta."</td>";
+						$respuesta = $respuesta."<td>";
+							$respuesta = $respuesta.$r['usuario'];
+						$respuesta = $respuesta."</td>";
+						$respuesta = $respuesta."<td>";
+							$respuesta = $respuesta.$r['clave'];
+						$respuesta = $respuesta."</td>";
+					$respuesta = $respuesta."</tr>";
+				}
+				return $respuesta;
+			    
+			}
+			else{
+				return '';
+			}
+			
+		}catch(Exception $e){
+			return $e->getMessage();
+		}
+		
+	}
 }

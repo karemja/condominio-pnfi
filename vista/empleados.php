@@ -110,7 +110,7 @@
             <button type="button" class="btn btn-primary" id="incluir" name="incluir">INCLUIR</button>
           </div>
           <div class="col">
-            <button type="button" class="btn btn-primary" id="consultar" data-toggle="modal" data-target="#modal1" name="consultar">CONSULTAR</button>
+            <button type="button" class="btn btn-primary" id="consultar" name="consultar">CONSULTAR</button>
           </div>
           <div class="col">
             <button type="button" class="btn btn-primary" id="modificar" name="modificar">MODIFICAR</button>
@@ -145,25 +145,8 @@
               <th>Fecha de Inngreso</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td>12345678</td>
-              <td>Pedro</td>
-              <td>Vijilante</td>
-              <td>16/05/2015</td>
-            </tr>
-            <tr>
-              <td>77777777</td>
-              <td>Maria</td>
-              <td>Conserje</td>
-              <td>13/07/2019</td>
-            </tr>
-            <tr>
-              <td>99999999</td>
-              <td>Tanos</td>
-              <td>Vijilante</td>
-              <td>12/02/2018</td>
-            </tr>
+          <tbody id="cuerpoconsulta">
+           
           </tbody>
         </table>
       </div>

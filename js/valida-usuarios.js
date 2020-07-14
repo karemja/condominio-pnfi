@@ -166,8 +166,10 @@ function carga() {
 			datos.append('direccion', $('#direccion').val());
 			envioAjax(datos);
 			limpia();			
-		}
-	}
+    }
+    
+  }
+  
 
 	document.getElementById('eliminar').onclick = function () {
 		er = /^[VE][-][0-9]{1,2}[.][0-9]{3}[.][0-9]{3}$/;
@@ -191,8 +193,40 @@ function carga() {
 			envioAjax(datos);
 			limpia();
 		}
-	}
+  }
+  
+  document.getElementById('consultar').onclick = function () {
+    var datos = new FormData();
+    datos.append('accion', 'consultar');
+    consultaAjax(datos);
+    
+  }
 }
+
+function consultaAjax(datos) {
+  $.ajax({
+    async: true,
+    url: '', //la pagina a donde se envia por estar en mvc, se omite la ruta ya que siempre estaremos en la misma pagina
+    type: 'POST',//tipo de envio 
+    contentType: false,
+    data: datos,
+    processData: false,
+    cache: false,
+    success: function (respuesta) {//si resulto exitosa la transmision
+      $("#cuerpoconsulta").html(respuesta);
+      $("#modal1").modal("show");
+    },
+    error: function () {
+      $("#contenidodemodal").html('Error con ajax');
+      $("#mostrarmodal").modal("show");
+      setTimeout(function () {
+        $("#mostrarmodal").modal("hide");
+      }, 4000);
+    }
+
+  });
+}
+
 
 function envioAjax(datos) {
 	$.ajax({

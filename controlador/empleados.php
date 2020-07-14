@@ -1,29 +1,51 @@
 <?php
-  //verifica que exista la vista de
-  //la pagina
-  if(is_file("vista/".$pagina.".php")){
-	  //si existe se la trae, ahora ve a la carpeta vista
-    //y busca el archivo principal.php 
-    
-    if(isset($_POST['accion'])){
-		  $accion = $_POST['accion'];
-		  if($accion=='incluir'){
-			echo "USTED DESEA INCLUIR <br/>".$_POST['cedula']."<br/>".
-				$_POST['nombre']." ".$_POST['apellido'];  
-		  }
-		  elseif($accion=='modificar'){
-			echo "USTED DESEA MODIFICAR <br/>".$_POST['cedula']."<br/>".
-			$_POST['nombre']." ".$_POST['apellido'];  
-		  }
-		  elseif($accion=='eliminar'){
-			echo "USTED DESEA ELIMINAR <br/>".$_POST['cedula']."<br/>".
-			$_POST['nombre']." ".$_POST['apellido'];  
-      }
-      exit;
-	  }
+require_once('modelo/empleados.php');
+if (!is_file("modelo/" . $pagina . ".php")) {
+  echo "falta definir la clase " . $pagina;
+}
 
-	  require_once("vista/".$pagina.".php"); 
+if (is_file("vista/" . $pagina . ".php")) {
+  //si existe se la trae, ahora ve a la carpeta vista
+  //y busca el archivo principal.php
+
+  $o = new empleados();
+
+  if (isset($_POST['accion'])) {
+
+    //como ya sabemos si estamos aca es porque se recibio alguna informacion
+    //de la vista, por lo que lo primero que debemos hacer ahora que tenemos una 
+    //clase es guardar esos valores en ella con los metodos set
+
+    $accion = $_POST['accion'];
+
+    if ($accion == 'consultar') {
+      echo $o->consultar();
+      exit;
+    }
+    $o->set_cedula($_POST['cedula']);
+    $o->set_apellido($_POST['apellido']);
+    $o->set_nombre($_POST['nombre']);
+    $o->set_correo($_POST['correo']);
+    $o->set_telefono($_POST['telefono']);
+    $o->set_direccion($_POST['direccion']);
+    $o->set_cargo($_POST['cargo']);
+    $o->set_salario($_POST['salario']);
+    $o->set_fecha_ingreso($_POST['fecha_ingreso']);
+    $o->set_hora_entrada($_POST['hora_entrada']);
+    $o->set_hora_salida($_POST['hora_salida']);
+
+
+    if ($accion == 'incluir') {
+      echo  $o->incluir();
+    } elseif ($accion == 'modificar') {
+      echo  $o->modificar();
+    } elseif ($accion == 'eliminar') {
+      echo  $o->eliminar();
+    }
+    exit;
   }
-  else{
-	  echo "pagina en construccion";
-  }
+
+  require_once("vista/" . $pagina . ".php");
+} else {
+  echo "pagina en construccion";
+}

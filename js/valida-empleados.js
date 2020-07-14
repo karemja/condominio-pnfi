@@ -326,11 +326,50 @@ function carga() {
 			datos.append('cedula', $('#cedula').val());
 			datos.append('nombre', $('#nombre').val());
 			datos.append('apellido', $('#apellido').val());
+			datos.append('telefono', $('#telefono').val());
+			datos.append('correo', $('correo').val());
+			datos.append('direccion', $('direccion').val());
+			datos.append('salario', $('salario').val());
+      datos.append('cargo', $('cargo').val());
+			datos.append('fecha_ingreso', $('fecha_ingreso').val());
+			datos.append('hora_entrada', $('hora_entrada').val());
+			datos.append('hora_salida', $('hora_salida').val());
+      
 			envioAjax(datos);
 			limpia();
 		}
 	}
 
+  document.getElementById('consultar').onclick = function () {
+    var datos = new FormData();
+    datos.append('accion', 'consultar');
+    consultaAjax(datos);
+    
+  }
+}
+
+function consultaAjax(datos) {
+  $.ajax({
+    async: true,
+    url: '', //la pagina a donde se envia por estar en mvc, se omite la ruta ya que siempre estaremos en la misma pagina
+    type: 'POST',//tipo de envio 
+    contentType: false,
+    data: datos,
+    processData: false,
+    cache: false,
+    success: function (respuesta) {//si resulto exitosa la transmision
+      $("#cuerpoconsulta").html(respuesta);
+      $("#modal1").modal("show");
+    },
+    error: function () {
+      $("#contenidodemodal").html('Error con ajax');
+      $("#mostrarmodal").modal("show");
+      setTimeout(function () {
+        $("#mostrarmodal").modal("hide");
+      }, 4000);
+    }
+
+  });
 }
 
 function envioAjax(datos) {

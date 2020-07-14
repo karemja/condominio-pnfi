@@ -83,7 +83,7 @@
 						<button type="button" class="btn btn-primary" id="incluir" name="incluir">INCLUIR</button>
 					</div>
 					<div class="col">
-						<button type="button" class="btn btn-primary" id="consultar" data-toggle="modal" data-target="#modal1" name="consultar">CONSULTAR</button>
+						<button type="button" class="btn btn-primary" id="consultar" name="consultar">CONSULTAR</button>
 					</div>
 					<div class="col">
 						<button type="button" class="btn btn-primary" id="modificar" name="modificar">MODIFICAR</button>
@@ -117,22 +117,7 @@
 							<th>Clave</th>
 						</tr>
 					</thead>
-					<tbody>
-						<tr>
-							<td>12345678</td>
-							<td>Pedro</td>
-							<td>******</td>
-						</tr>
-						<tr>
-							<td>77777777</td>
-							<td>Maria</td>
-							<td>*******</td>
-						</tr>
-						<tr>
-							<td>99999999</td>
-							<td>Tanos</td>
-							<td>*******</td>
-						</tr>
+					<tbody id="cuerpoconsulta">
 					</tbody>
 				</table>
 			</div>
